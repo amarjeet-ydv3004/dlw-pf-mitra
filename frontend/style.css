@@ -5,9 +5,43 @@ body{
     padding:0;
 }
 
+/* Navbar */
+
+.navbar{
+    background:#003366;
+    color:white;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 30px;
+}
+
+.logo{
+    font-size:22px;
+    font-weight:bold;
+}
+
+.nav-links{
+    list-style:none;
+    display:flex;
+    gap:20px;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.nav-links a:hover{
+    color:yellow;
+}
+
+/* Main Container */
+
 .container{
     width:80%;
-    max-width:800px;
+    max-width:1200px;
     margin:30px auto;
 }
 
@@ -20,8 +54,10 @@ h1{
     color:gray;
 }
 
+/* Chat Box */
+
 .chat-box{
-    height:400px;
+    height:450px;
     background:white;
     border:1px solid #ccc;
     border-radius:10px;
@@ -29,16 +65,50 @@ h1{
     overflow-y:auto;
 }
 
+/* User Message */
+
+.user-message{
+    text-align:right;
+    margin-bottom:10px;
+    font-weight:bold;
+    color:#222;
+}
+
+/* Bot Message */
+
 .bot-message{
     background:#e8f0fe;
     padding:10px;
     border-radius:10px;
     width:fit-content;
+    max-width:90%;
     margin-bottom:10px;
 }
 
+/* Employee Result Card */
+
+.result-card{
+    background:white;
+    border-left:5px solid #003366;
+    padding:15px;
+    border-radius:10px;
+    margin-top:10px;
+}
+
+.result-card h3{
+    margin-top:0;
+    color:#003366;
+}
+
+.result-card p{
+    margin:8px 0;
+}
+
+/* Input Area */
+
 .input-area{
     display:flex;
+    gap:10px;
     margin-top:15px;
 }
 
@@ -46,9 +116,63 @@ input{
     flex:1;
     padding:12px;
     font-size:16px;
+    border:1px solid #ccc;
+    border-radius:5px;
 }
 
-button{
+/* Ask Button */
+
+#askBtn{
+    background:#003366;
+    color:white;
+    border:none;
+    border-radius:5px;
     padding:12px 20px;
     cursor:pointer;
+}
+
+#askBtn:hover{
+    background:#004c99;
+}
+
+/* Clear Button */
+
+#clearBtn{
+    background:#dc3545;
+    color:white;
+    border:none;
+    border-radius:5px;
+    padding:12px 20px;
+    cursor:pointer;
+}
+
+#clearBtn:hover{
+    background:#b02a37;
+}
+
+/* Sections */
+
+section{
+    margin-top:40px;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+}
+
+section h2{
+    color:#003366;
+}
+
+/* Footer */
+
+footer{
+    background:#003366;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:40px;
+}
+
+footer p{
+    margin:5px 0;
 }

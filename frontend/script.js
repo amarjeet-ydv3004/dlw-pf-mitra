@@ -1,13 +1,15 @@
+const clearBtn = document.getElementById("clearBtn");
 const askBtn = document.getElementById("askBtn");
 const userInput = document.getElementById("userInput");
 const chatBox = document.getElementById("chatBox");
 
+// Ask Button Click
 askBtn.addEventListener("click", async () => {
 
-    const name = userInput.value;
+    const name = userInput.value.trim();
 
-    if(name.trim() === ""){
-        alert("Please enter employee name");
+    if(name === ""){
+        alert("Please enter a question");
         return;
     }
 
@@ -17,6 +19,9 @@ askBtn.addEventListener("click", async () => {
             ${name}
         </div>
     `;
+
+    // Auto Scroll
+    chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
 
@@ -33,15 +38,45 @@ askBtn.addEventListener("click", async () => {
             </div>
         `;
 
-    } catch(error){
+        // Auto Scroll
+        chatBox.scrollTop = chatBox.scrollHeight;
+
+    }
+    catch(error){
 
         chatBox.innerHTML += `
             <div class="bot-message">
-                Error connecting to server.
+                ❌ Error connecting to server.
             </div>
         `;
+
+        // Auto Scroll
+        chatBox.scrollTop = chatBox.scrollHeight;
     }
 
+    // Clear Input Box
     userInput.value = "";
+
+});
+
+
+// Enter Key Support
+userInput.addEventListener("keypress", function(event){
+
+    if(event.key === "Enter"){
+        askBtn.click();
+    }
+
+});
+
+clearBtn.addEventListener("click", () => {
+
+    chatBox.innerHTML = `
+        <div class="bot-message">
+            Hello Amarjeet! 👋
+            <br>
+            Ask your PF related question.
+        </div>
+    `;
 
 });
