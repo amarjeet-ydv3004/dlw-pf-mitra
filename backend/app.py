@@ -2,9 +2,13 @@ from flask import Flask, request
 from flask_cors import CORS
 import sqlite3
 import re
+from chatbot_responses import responses
+from api.routes import api
 
 app = Flask(__name__)
 CORS(app)
+
+app.register_blueprint(api)
 
 @app.route("/")
 def home():
@@ -27,100 +31,82 @@ def ask():
     # KNOWLEDGE BASE
     # =========================
 
-    if question in ["hello", "hi", "hii", "hiiii", "namaste"]:
-        return """
-<div class='result-card'>
-<h3>👋 Welcome</h3>
-<p>Hello! Welcome to PF Mitra Chatbot.</p>
-</div>
-"""
 
-    if question == "good morning":
-        return """
-<div class='result-card'>
-<h3>🌞 Good Morning</h3>
-<p>Welcome to PF Mitra Chatbot.</p>
-</div>
-"""
+    # Greetings
+    if question in [
+        "hello", "hi", "hii", "hiiii", "hey", "namaste"]:
+       return responses["hello"]
+    
+    # Time Greetings
+    if "good morning" in question:
+        return responses["good morning"]
+    
+    if "good afternoon" in question:
+        return responses["good afternoon"]
+    
+    if "good evening" in question:
+        return responses["good evening"]
+    
+    if "good night" in question:
+        return responses["good night"]
+    
+    # Thanks
+    if "thanks" in question or "thank you" in question:
+        return responses["thanks"]
+    
+    # Appreciation
+    if any(word in question for word in [
+        "good", "better", "best", "excellent",
+        "great", "awesome", "nice", "ok", "okay"
+    ]):
+        return responses["appreciation"]
+    
+    # Jai Hind
+    if "jai hind" in question:
+        return responses["jai hind"]
+    
+    # PF
+    if "pf" in question:
+        return responses["pf"]
+    
+    # BLW History (pehle)
+    if "history of blw" in question:
+        return responses["history of blw"]
+    
+    # BLW / DLW
+    if "blw" in question or "dlw" in question:
+        return responses["blw"]
+    
+    # TTC
+    if "ttc" in question or "technical training centre" in question:
+        return responses["ttc"]
+    
+    # IT Centre
+    if "it centre" in question or "it center" in question:
+        return responses["it centre"]
+    
+    # Locomotives
+    if "wap7" in question:
+        return responses["wap7"]
+    
+    if "wag9" in question:
+        return responses["wag9"]
+    
+    # Project
+    if "developer" in question:
+        return responses["developer"]
+    
+    if "about project" in question:
+        return responses["about project"]
+    
+    if "technology" in question:
+        return responses["technology used"]
+    
+    # Exact Match Fallback
+    if question in responses:
+        return responses[question]
 
-    if question == "good evening":
-        return """
-<div class='result-card'>
-<h3>🌆 Good Evening</h3>
-<p>Welcome to PF Mitra Chatbot.</p>
-</div>
-"""
 
-    if question == "good night":
-        return """
-<div class='result-card'>
-<h3>🌙 Good Night</h3>
-<p>Thank you for using PF Mitra Chatbot.</p>
-</div>
-"""
-
-    if question in ["thanks", "thank you"]:
-        return """
-<div class='result-card'>
-<h3>🙏 Thank You</h3>
-<p>You are welcome!</p>
-</div>
-"""
-
-    if question == "blw":
-        return """
-<div class='result-card'>
-<h3>🏭 About BLW</h3>
-<p>
-Banaras Locomotive Works (BLW), formerly Diesel Locomotive Works (DLW),
-is a major locomotive manufacturing unit of Indian Railways located in Varanasi.
-</p>
-</div>
-"""
-
-    if question == "ttc":
-        return """
-<div class='result-card'>
-<h3>🎓 Technical Training Centre (TTC)</h3>
-<p>
-TTC provides training for railway staff,
-apprentices and engineering students.
-</p>
-</div>
-"""
-
-    if question in ["it centre", "it center"]:
-        return """
-<div class='result-card'>
-<h3>💻 IT Centre</h3>
-<p>
-IT Centre manages website, applications,
-database and IT services of BLW.
-</p>
-</div>
-"""
-
-    if question == "wap7":
-        return """
-<div class='result-card'>
-<h3>🚆 WAP-7</h3>
-<p>
-WAP-7 is a high-speed electric passenger locomotive
-used by Indian Railways.
-</p>
-</div>
-"""
-
-    if question == "wag9":
-        return """
-<div class='result-card'>
-<h3>🚆 WAG-9</h3>
-<p>
-WAG-9 is a powerful electric freight locomotive
-used for hauling heavy goods trains.
-</p>
-</div>
-"""
 
     # =========================
     # DATABASE SEARCH
